@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hand Frame AR</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Hand Frame AR</h1>
+      <p class="sub">Make a frame with your hands — a portal opens inside it.</p>
+    </header>
+
+    <section class="controls">
+      <button id="toggle" class="primary">Start camera</button>
+
+      <fieldset class="effects">
+        <legend>Effect</legend>
+        <label><input type="radio" name="effect" value="web" checked /> Web portal</label>
+        <label><input type="radio" name="effect" value="window" id="windowRadio" disabled /> Character window</label>
+        <label class="file">
+          <input type="file" id="windowFile" accept="image/*" />
+          <span>Load character picture…</span>
+        </label>
+        <label><input type="radio" name="effect" value="face" id="faceRadio" disabled /> Face filter</label>
+        <label class="file">
+          <input type="file" id="faceFile" accept="image/*" />
+          <span>Load face photo…</span>
+        </label>
+        <label><input type="radio" name="effect" value="clip" id="clipRadio" disabled /> My clip</label>
+        <label class="file">
+          <input type="file" id="clipFile" accept="image/*,video/*" />
+          <span>Load image/video…</span>
+        </label>
+      </fieldset>
+
+      <label class="check"><input type="checkbox" id="wholeHead" checked /> Whole head (hair too)</label>
+      <span id="windowControls" class="window-controls" hidden>
+        <label class="check">Size <input type="range" id="windowSize" min="0.5" max="2" step="0.02" value="1" /></label>
+        <label class="check">Up / down <input type="range" id="windowOffset" min="-3" max="3" step="0.05" value="0" /></label>
+        <button id="realign" class="link">Re-pick eyes &amp; chin</button>
+      </span>
+      <label class="check" id="maskSizeLabel" hidden>Mask size <input type="range" id="maskSize" min="0.8" max="1.6" step="0.05" value="1.15" /></label>
+      <label class="check"><input type="checkbox" id="showPoints" /> Show hand points</label>
+    </section>
+
+    <div id="status" class="status idle" role="status" aria-live="polite">Click “Start camera” to begin</div>
+
+    <main id="stage" class="stage">
+      <video id="video" playsinline muted></video>
+      <canvas id="effect" class="effect" width="640" height="400"></canvas>
+      <canvas id="faceLayer" class="overlay"></canvas>
+      <canvas id="overlay" class="overlay"></canvas>
+      <div id="placeholder" class="placeholder">Camera is off</div>
+      <div id="fps" class="fps"></div>
+    </main>
+
+    <section class="help">
+      <h2>How to use</h2>
+      <ol>
+        <li>Press <b>Start camera</b> and allow camera access.</li>
+        <li>Hold up <b>both hands</b>, palms toward the camera.</li>
+        <li>Make an <b>L</b> with each hand: index finger up, thumb pointing in toward the other hand.</li>
+        <li>Spread your hands apart. When the frame locks you'll see <b>Frame detected ✓</b> and the portal appears.</li>
+        <li>Move, tilt or stretch your hands — the portal follows.</li>
+      </ol>
+      <p><b>Face filter:</b> click <b>Load face photo…</b> and pick a clear, front-facing photo. When you frame your face with your hands, your face turns into the photo's face — only inside the frame. Use photos of yourself or people who have agreed.</p>
+      <p class="privacy">🔒 Everything runs in this browser tab. Video is never recorded or uploaded.</p>
+    </section>
+
+    <dialog id="alignDialog" class="align">
+      <p id="alignText">Click the character's <b>left eye</b> (on your left).</p>
+      <canvas id="alignCanvas"></canvas>
+      <div class="align-actions">
+        <button id="alignReset" class="link">Start over</button>
+        <button id="alignCancel" class="link">Cancel</button>
+      </div>
+    </dialog>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

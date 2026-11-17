@@ -1,0 +1,21 @@
+{
+  "name": "hand-frame-ar",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local webcam prototype: frame a scene with your hands and an animation appears inside it.",
+  "type": "module",
+  "scripts": {
+    "postinstall": "node scripts/setup.mjs",
+    "setup": "node scripts/setup.mjs",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.4.6"
+  },
+  "dependencies": {
+    "@mediapipe/tasks-vision": "^1.2.3",
+    "delaunator": "^5.1.0"
+  }
+}
